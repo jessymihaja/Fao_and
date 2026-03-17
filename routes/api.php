@@ -2,6 +2,11 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClassificationController;
+use App\Http\Controllers\API\DomaineInterventionController;
+use App\Http\Controllers\API\EntiteAccrediteeController;
+use App\Http\Controllers\API\ProjetController;
+use App\Http\Controllers\API\StatusController;
+use App\Http\Controllers\API\ZoneGeographiqueController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -17,14 +22,46 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
     Route::post('/logout', [AuthController::class, 'logout']);
 
-    // --- CLASSIFICATIONS ---
     // lecture
     Route::get('/classifications', [ClassificationController::class, 'index']);
+    Route::get('/statuses', [StatusController::class, 'index']);
+    Route::get('/zone-geographiques', [ZoneGeographiqueController::class, 'index']);
+    Route::get('/entite-accreditees', [EntiteAccrediteeController::class, 'index']);
+    Route::get('/domaine-interventions', [DomaineInterventionController::class, 'index']);
+    Route::get('/projets', [ProjetController::class, 'index']);
+    Route::get('/projets/{id}', [ProjetController::class, 'show']);
+
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
-
+        // --- CLASSIFICATIONS ---
         Route::post('/classifications', [ClassificationController::class, 'store']);
         Route::put('/classifications/{id}', [ClassificationController::class, 'update']);
         Route::delete('/classifications/{id}', [ClassificationController::class, 'destroy']);
+
+        // --- STATUSES ---
+        Route::post('/statuses', [StatusController::class, 'store']);
+        Route::put('/statuses/{id}', [StatusController::class, 'update']);
+        Route::delete('/statuses/{id}', [StatusController::class, 'destroy']);
+
+        // --- ZONES GEOGRAPHIQUES ---
+        Route::post('/zone-geographiques', [ZoneGeographiqueController::class, 'store']);
+        Route::put('/zone-geographiques/{id}', [ZoneGeographiqueController::class, 'update']);
+        Route::delete('/zone-geographiques/{id}', [ZoneGeographiqueController::class, 'destroy']);
+
+        // --- ENTITES ACCREDITEES ---
+        Route::post('/entite-accreditees', [EntiteAccrediteeController::class, 'store']);
+        Route::put('/entite-accreditees/{id}', [EntiteAccrediteeController::class, 'update']);
+        Route::delete('/entite-accreditees/{id}', [EntiteAccrediteeController::class, 'destroy']);
+
+        // --- DOMAINES D'INTERVENTION ---
+        Route::post('/domaine-interventions', [DomaineInterventionController::class, 'store']);
+        Route::put('/domaine-interventions/{id}', [DomaineInterventionController::class, 'update']);
+        Route::delete('/domaine-interventions/{id}', [DomaineInterventionController::class, 'destroy']);
+
+        // --- PROJETS ---
+        Route::post('/projets', [ProjetController::class, 'store']);
+        Route::put('/projets/{id}', [ProjetController::class, 'update']);
+        Route::delete('/projets/{id}', [ProjetController::class, 'destroy']);
     });
+
 });
