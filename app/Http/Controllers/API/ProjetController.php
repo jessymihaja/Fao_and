@@ -52,7 +52,7 @@ class ProjetController extends Controller
         $projet = Projet::findOrFail($id);
 
         $request->validate([
-            'id_utilisateur' => 'required|integer',
+            'id_utilisateur_updater' => 'required|integer',
             'nom' => 'required|string',
             'date_debut' => 'required|date',
             'date_fin' => 'required|date|after_or_equal:date_debut',

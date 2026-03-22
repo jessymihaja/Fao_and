@@ -4,6 +4,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClassificationController;
 use App\Http\Controllers\API\DomaineInterventionController;
 use App\Http\Controllers\API\EntiteAccrediteeController;
+use App\Http\Controllers\API\FinancementController;
 use App\Http\Controllers\API\ProjetController;
 use App\Http\Controllers\API\StatusController;
 use App\Http\Controllers\API\ZoneGeographiqueController;
@@ -30,6 +31,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/domaine-interventions', [DomaineInterventionController::class, 'index']);
     Route::get('/projets', [ProjetController::class, 'index']);
     Route::get('/projets/{id}', [ProjetController::class, 'show']);
+    Route::get('/financements', [FinancementController::class, 'index']);
+    Route::get('/financements/{id}', [FinancementController::class, 'show']);
 
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
@@ -62,6 +65,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/projets', [ProjetController::class, 'store']);
         Route::put('/projets/{id}', [ProjetController::class, 'update']);
         Route::delete('/projets/{id}', [ProjetController::class, 'destroy']);
+
+        // --- FINANCEMENTS ---
+        Route::post('/financements', [FinancementController::class, 'store']);
+        Route::put('/financements/{id}', [FinancementController::class, 'update']);
+        Route::delete('/financements/{id}', [FinancementController::class, 'destroy']);
     });
 
 });
