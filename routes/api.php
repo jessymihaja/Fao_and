@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\ClassificationController;
+use App\Http\Controllers\API\DeviseController;
 use App\Http\Controllers\API\DomaineInterventionController;
 use App\Http\Controllers\API\EntiteAccrediteeController;
 use App\Http\Controllers\API\FinancementController;
@@ -33,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/projets/{id}', [ProjetController::class, 'show']);
     Route::get('/financements', [FinancementController::class, 'index']);
     Route::get('/financements/{id}', [FinancementController::class, 'show']);
+    Route::get('/devises', [DeviseController::class, 'index']);
 
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
@@ -65,6 +67,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/projets', [ProjetController::class, 'store']);
         Route::put('/projets/{id}', [ProjetController::class, 'update']);
         Route::delete('/projets/{id}', [ProjetController::class, 'destroy']);
+
+        // --- DEVISES ---
+        Route::post('/devises', [DeviseController::class, 'store']);
+        Route::put('/devises/{id}', [DeviseController::class, 'update']);
+        Route::delete('/devises/{id}', [DeviseController::class, 'destroy']);
 
         // --- FINANCEMENTS ---
         Route::post('/financements', [FinancementController::class, 'store']);

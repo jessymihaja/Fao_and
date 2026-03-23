@@ -16,7 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('projet_id');
             $table->string('financeur');
             $table->decimal('montant', 15, 2);
-            $table->string('devise');
+            $table->unsignedBigInteger('devise_id');
+            $table->decimal('montant_MGA', 15, 2);
             $table->date('date_financement');
             $table->unsignedBigInteger('utilisateur_id');
             $table->timestamp('created_at')->useCurrent();
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->foreign('projet_id')->references('id_projet')->on('projets')->onDelete('cascade');
             $table->foreign('utilisateur_id')->references('id_utilisateur')->on('utilisateurs')->onDelete('cascade');
             $table->foreign('id_utilisateur_updater')->references('id_utilisateur')->on('utilisateurs')->onDelete('set null');
+            $table->foreign('devise_id')->references('id_devise')->on('devises')->onDelete('set null');
 
         });
     }

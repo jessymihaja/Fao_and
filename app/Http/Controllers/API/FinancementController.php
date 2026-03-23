@@ -30,7 +30,8 @@ class FinancementController extends Controller
             'projet_id' => 'required|integer',
             'financeur' => 'required|string',
             'montant' => 'required|numeric',
-            'devise' => 'required|string',
+            'devise_id' => 'required|integer',
+            'montant_MGA' => 'required|numeric',
             'date_financement' => 'required|date',
             'utilisateur_id' => 'required|integer',
         ]);
@@ -51,7 +52,8 @@ class FinancementController extends Controller
             'projet_id' => 'required|integer',
             'financeur' => 'required|string',
             'montant' => 'required|numeric',
-            'devise' => 'required|string',
+            'devise_id' => 'required|integer',
+            'montant_MGA' => 'required|numeric',
             'date_financement' => 'required|date',
             'id_utilisateur_updater' => 'required|integer',
         ]);
