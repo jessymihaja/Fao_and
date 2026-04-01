@@ -6,6 +6,8 @@ use App\Http\Controllers\API\DeviseController;
 use App\Http\Controllers\API\DomaineInterventionController;
 use App\Http\Controllers\API\EntiteAccrediteeController;
 use App\Http\Controllers\API\FinancementController;
+use App\Http\Controllers\API\HeroController;
+use App\Http\Controllers\API\MapController;
 use App\Http\Controllers\API\ProjetController;
 use App\Http\Controllers\API\StatusController;
 use App\Http\Controllers\API\ZoneGeographiqueController;
@@ -19,6 +21,9 @@ Route::get('/test', function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
+Route::get('/heros', [HeroController::class, 'index']);
+Route::get('/maps/{id}', [MapController::class, 'show']);
+Route::get('/maps', [MapController::class, 'index']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [AuthController::class, 'me']);
@@ -77,6 +82,17 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/financements', [FinancementController::class, 'store']);
         Route::put('/financements/{id}', [FinancementController::class, 'update']);
         Route::delete('/financements/{id}', [FinancementController::class, 'destroy']);
+
+        // --- HERO ---
+        Route::post('/heros', [HeroController::class, 'store']);
+        Route::put('/heros/{id}', [HeroController::class, 'update']);
+        Route::delete('/heros/{id}', [HeroController::class, 'destroy']);
+
+        // --- MAPS ---
+        Route::post('/maps', [MapController::class, 'store']);
+        Route::put('/maps/{id}', [MapController::class, 'update']);
+        Route::delete('/maps/{id}', [MapController::class, 'destroy']);
+
     });
 
 });
