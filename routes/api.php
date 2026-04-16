@@ -40,6 +40,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/financements', [FinancementController::class, 'index']);
     Route::get('/financements/{id}', [FinancementController::class, 'show']);
     Route::get('/devises', [DeviseController::class, 'index']);
+            // --- HERO ---
+        Route::post('/heros', [HeroController::class, 'store']);
+        Route::put('/heros/{id}', [HeroController::class, 'update']);
+        Route::delete('/heros/{id}', [HeroController::class, 'destroy']);
+
+        // --- MAPS ---
+        Route::post('/maps', [MapController::class, 'store']);
+        Route::put('/maps/{id}', [MapController::class, 'update']);
+        Route::delete('/maps/{id}', [MapController::class, 'destroy']);
 
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
@@ -83,15 +92,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/financements/{id}', [FinancementController::class, 'update']);
         Route::delete('/financements/{id}', [FinancementController::class, 'destroy']);
 
-        // --- HERO ---
-        Route::post('/heros', [HeroController::class, 'store']);
-        Route::put('/heros/{id}', [HeroController::class, 'update']);
-        Route::delete('/heros/{id}', [HeroController::class, 'destroy']);
 
-        // --- MAPS ---
-        Route::post('/maps', [MapController::class, 'store']);
-        Route::put('/maps/{id}', [MapController::class, 'update']);
-        Route::delete('/maps/{id}', [MapController::class, 'destroy']);
 
     });
 
