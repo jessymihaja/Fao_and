@@ -85,4 +85,11 @@ class FinancementController extends Controller
             'message' => 'Supprimé',
         ]);
     }
+    public function financementsNumber(){
+        $count = Financement::count();
+        return response()->json([
+            'count' => $count
+        ]);
+    }
+
 }

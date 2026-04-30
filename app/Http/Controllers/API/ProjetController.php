@@ -94,4 +94,29 @@ class ProjetController extends Controller
             'message' => 'Supprimé',
         ]);
     }
+    public function projectsNumber(){
+        $count = Projet::count();
+    
+        return response()->json([
+            'count' => $count
+        ]); 
+    }
+   public function projectsNumberActive() {
+    $count = Projet::where('status_id', 1)->count();
+    
+    return response()->json([
+        'count' => $count
+    ]);
+}
+
+    public function projectsfilter($request){
+        $projets = Projet::with([
+            'utilisateur',
+            'status',
+            'classification', 
+            'zoneGeographique',
+            'updater'])
+                    ->get();
+        return response()->json($projets);
+    }   
 }

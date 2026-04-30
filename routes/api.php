@@ -36,8 +36,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/entite-accreditees', [EntiteAccrediteeController::class, 'index']);
     Route::get('/domaine-interventions', [DomaineInterventionController::class, 'index']);
     Route::get('/projets', [ProjetController::class, 'index']);
+    Route::get('/projets/number', [ProjetController::class, 'projectsNumber']);
+    Route::get('/projets/number-active', [ProjetController::class, 'projectsNumberActive']);
+    Route::get('/projets/filter', [ProjetController::class, 'projectsfilter']);
     Route::get('/projets/{id}', [ProjetController::class, 'show']);
+
     Route::get('/financements', [FinancementController::class, 'index']);
+    Route::get('/financements/number', [FinancementController::class, 'financementsNumber']);
     Route::get('/financements/{id}', [FinancementController::class, 'show']);
     Route::get('/devises', [DeviseController::class, 'index']);
             // --- HERO ---
