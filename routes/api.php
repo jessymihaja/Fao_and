@@ -11,6 +11,8 @@ use App\Http\Controllers\API\MapController;
 use App\Http\Controllers\API\ProjetController;
 use App\Http\Controllers\API\StatusController;
 use App\Http\Controllers\API\ZoneGeographiqueController;
+use App\Http\Controllers\API\WelcomeMessageController;
+use App\Http\Controllers\API\ChatbotKnowledgeController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -35,6 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/zone-geographiques', [ZoneGeographiqueController::class, 'index']);
     Route::get('/entite-accreditees', [EntiteAccrediteeController::class, 'index']);
     Route::get('/domaine-interventions', [DomaineInterventionController::class, 'index']);
+    Route::get('/welcome-messages', [WelcomeMessageController::class, 'index']);
+    Route::get('/chatbot-knowledges', [ChatbotKnowledgeController::class, 'index']);
+
     Route::get('/projets', [ProjetController::class, 'index']);
     Route::get('/projets/number', [ProjetController::class, 'projectsNumber']);
     Route::get('/projets/number-active', [ProjetController::class, 'projectsNumberActive']);
@@ -54,6 +59,16 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/maps', [MapController::class, 'store']);
         Route::put('/maps/{id}', [MapController::class, 'update']);
         Route::delete('/maps/{id}', [MapController::class, 'destroy']);
+
+        // --- WELCOME MESSAGES ---
+        Route::post('/welcome-messages', [WelcomeMessageController::class, 'store']);
+        Route::put('/welcome-messages/{id}', [WelcomeMessageController::class, 'update']);
+        Route::delete('/welcome-messages/{id}', [WelcomeMessageController::class, 'destroy']);
+
+        // --- CHATBOT KNOWLEDGE ---
+        Route::post('/chatbot-knowledges', [ChatbotKnowledgeController::class, 'store']);
+        Route::put('/chatbot-knowledges/{id}', [ChatbotKnowledgeController::class, 'update']);
+        Route::delete('/chatbot-knowledges/{id}', [ChatbotKnowledgeController::class, 'destroy']);
 
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
