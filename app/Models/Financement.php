@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Projet;
+use App\Models\Devise;
+use App\Models\User;
 
 class Financement extends Model
 {
@@ -24,4 +27,14 @@ class Financement extends Model
         'id_utilisateur_updater',
 
     ];
+    public function projet(){
+        return $this->belongsTo('App\Models\Projet', 'projet_id');
+    }
+    public function devise(){
+        return $this->belongsTo('App\Models\Devise', 'devise_id');
+    }
+    public function utilisateur(){
+        return $this->belongsTo('App\Models\User', 'utilisateur_id');
+    }
+
 }

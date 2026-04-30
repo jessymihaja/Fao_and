@@ -10,15 +10,24 @@ class FinancementController extends Controller
 {
     public function index()
     {
-        return response()->json([
-            Financement::all(),
-        ]);
+        $financements = Financement::with([
+            'projet',
+            'devise',
+            'utilisateur',])
+                    ->get();
+
+        return response()->json($financements); 
     }
 
     public function show($id)
     {
-        $financement = Financement::findOrFail($id);
-
+        $financement = Financement::
+        with([
+            'projet',
+            'devise',
+            'utilisateur',])
+            ->findOrFail($id);
+            
         return response()->json([
             $financement,
         ]);

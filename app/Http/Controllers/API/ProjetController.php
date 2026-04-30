@@ -10,19 +10,32 @@ class ProjetController extends Controller
 {
     public function index()
     {
-        return response()->json([
-            Projet::all(),
-        ]);
+        $projets = Projet::with([
+            'utilisateur',
+            'status',
+            'classification', 
+            'zoneGeographique',
+            'updater'])
+                    ->get();
+
+        return response()->json($projets);
     }
 
-    public function show($id)
-    {
-        $projet = Projet::findOrFail($id);
+    public function show($id) {
+    // On ajoute toutes les relations manquantes dans le 'with'
+    $projet = Projet::with([
+        'utilisateur', 
+        'status', 
+        'classification', 
+        'zoneGeographique', 
+        'entiteAccreditee', 
+        'domaineIntervention', 
+        'updater'
+    ])->findOrFail($id);
 
-        return response()->json([
-            $projet,
-        ]);
-    }
+    // Retourne l'objet directement
+    return response()->json($projet);
+}
 
     public function store(Request $request)
     {
