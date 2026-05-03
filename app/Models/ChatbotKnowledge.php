@@ -4,18 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Chatbot_knowledge extends Model
+class ChatbotKnowledge extends Model
 {
-    protected $table = 'chatbot_knowledges';
-    protected $primaryKey = 'id';
-
-    public $timestamps = false;
+    protected $table = 'chatbot_knowledge';
 
     protected $fillable = [
         'category',
         'keywords',
         'response',
-        'is_active'
+        'is_active',
+    ];
 
+    protected $casts = [
+        'is_active' => 'boolean',
     ];
 }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('welcome_messages', function (Blueprint $table) {
+        Schema::create('chatbot_settings', function (Blueprint $table) {
             $table->id();
             $table->boolean('is_active')->default(true);
             $table->string('welcome_message', 500)->nullable()->default('Bonjour ! Comment puis-je vous aider ?');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('welcome_messages');
+        Schema::dropIfExists('chatbot_settings');
     }
 };

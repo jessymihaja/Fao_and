@@ -11,8 +11,8 @@ use App\Http\Controllers\API\MapController;
 use App\Http\Controllers\API\ProjetController;
 use App\Http\Controllers\API\StatusController;
 use App\Http\Controllers\API\ZoneGeographiqueController;
-use App\Http\Controllers\API\WelcomeMessageController;
 use App\Http\Controllers\API\ChatbotKnowledgeController;
+use App\Http\Controllers\API\ChatbotSettingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -60,16 +60,18 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/maps/{id}', [MapController::class, 'update']);
         Route::delete('/maps/{id}', [MapController::class, 'destroy']);
 
-        // --- WELCOME MESSAGES ---
-        Route::post('/welcome-messages', [WelcomeMessageController::class, 'store']);
-        Route::put('/welcome-messages/{id}', [WelcomeMessageController::class, 'update']);
-        Route::delete('/welcome-messages/{id}', [WelcomeMessageController::class, 'destroy']);
-
         // --- CHATBOT KNOWLEDGE ---
-        Route::post('/chatbot-knowledges', [ChatbotKnowledgeController::class, 'store']);
-        Route::put('/chatbot-knowledges/{id}', [ChatbotKnowledgeController::class, 'update']);
-        Route::delete('/chatbot-knowledges/{id}', [ChatbotKnowledgeController::class, 'destroy']);
+        Route::post('/chatbot-knowledges', [ChatbotKnowledgeController::class, 'storeKnowledge']);
+        Route::put('/chatbot-knowledges/{id}', [ChatbotKnowledgeController::class, 'updateKnowledge']);
+        Route::delete('/chatbot-knowledges/{id}', [ChatbotKnowledgeController::class, 'destroyKnowledge']);
+        Route::get('/chatbot-knowledges', [ChatbotKnowledgeController::class, 'knowledge']);
 
+        // --- CHATBOT SETTINGS ---
+        Route::get('/chatbot-settings-public', [ChatbotSettingController::class, 'publicSettings']);
+        Route::put('/chatbot-settings', [ChatbotSettingController::class, 'updateSettings']);
+        Route::get('/chatbot-settings-admin', [ChatbotSettingController::class, 'settings']);
+        Route::post ('/chatbot-message', [ChatbotSettingController::class, 'message']);
+        
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
         // --- CLASSIFICATIONS ---

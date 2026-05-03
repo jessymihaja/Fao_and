@@ -1,75 +1,53 @@
 <?php
 
 namespace App\Http\Controllers\API;
+use App\Models\ChatbotKnowledge;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Chatbot_knowledge;
 
 class ChatbotKnowledgeController extends Controller
 {
-    public function index()
+    public function knowledge()
     {
-        return response()->json(
-            Chatbot_knowledge::all()
-        );
+        return response()->json(ChatbotKnowledge::orderBy('category')->get());
     }
 
-    public function store(Request $request)
+    public function storeKnowledge(Request $request): JsonResponse
     {
-        $request->validate([
-            'category',
-            'keywords',
-            'response',
-            'is_active'
+        $validated = $request->validate([
+            'category'  => ['required', 'string', 'max:100'],
+            'keywords'  => ['required', 'string'],
+            'response'  => ['required', 'string'],
         ]);
 
-        $chatbot_knowledge = Chatbot_knowledge::create([
-            'category' => $request->category,
-            'keywords' => $request->keywords,
-            'response' => $request->response,
-            'is_active' => $request->is_active
-        ]);
+        $validated['is_active'] = filter_var($request->input('is_active', true), FILTER_VALIDATE_BOOLEAN);
 
-        return response()->json([
-            'message' => 'Créé',
-            'data' => $chatbot_knowledge,
-        ]);
+        return response()->json(ChatbotKnowledge::create($validated), 201);
     }
 
-    public function update(Request $request, $id)
+    public function updateKnowledge(Request $request, int $id): JsonResponse
     {
-        $chatbot_knowledge = Chatbot_knowledge::findOrFail($id);
+        $item = ChatbotKnowledge::findOrFail($id);
 
-        $request->validate([
-            'category',
-            'keywords',
-            'response',
-            'is_active'
+        $data = $request->validate([
+            'category'  => ['sometimes', 'string', 'max:100'],
+            'keywords'  => ['sometimes', 'string'],
+            'response'  => ['sometimes', 'string'],
         ]);
 
-        $chatbot_knowledge->update([
-            'category' => $request->category,
-            'keywords' => $request->keywords,
-            'response' => $request->response,
-            'is_active' => $request->is_active
-        ]);
+        if ($request->has('is_active')) {
+            $data['is_active'] = filter_var($request->input('is_active'), FILTER_VALIDATE_BOOLEAN);
+        }
 
-        return response()->json([
-            'message' => 'Modifié',
-            'data' => $chatbot_knowledge,
-        ]);
+        $item->update($data);
+        return response()->json($item);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Chatbot_knowledge $chatbot_knowledge)
+    public function destroyKnowledge(int $id): JsonResponse
     {
-        $chatbot_knowledge->delete();
-
-        return response()->json([
-            'message' => 'Supprimé',
-        ]);
-    }   
+        ChatbotKnowledge::findOrFail($id)->delete();
+        return response()->json(['message' => 'Entrée supprimée.']);
+    }
 }
