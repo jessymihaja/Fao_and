@@ -13,6 +13,11 @@ use App\Http\Controllers\API\StatusController;
 use App\Http\Controllers\API\ZoneGeographiqueController;
 use App\Http\Controllers\API\ChatbotKnowledgeController;
 use App\Http\Controllers\API\ChatbotSettingController;
+use App\Http\Controllers\API\FaqsController;
+use App\Http\Controllers\API\PartnerController;
+use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\SliderController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/test', function () {
@@ -71,6 +76,34 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/chatbot-settings', [ChatbotSettingController::class, 'updateSettings']);
         Route::get('/chatbot-settings-admin', [ChatbotSettingController::class, 'settings']);
         Route::post ('/chatbot-message', [ChatbotSettingController::class, 'message']);
+
+        // --- FAQS ---
+        Route::post('/faqs', [FaqsController::class, 'store']);
+        Route::put('/faqs/{id}', [FaqsController::class, 'update']);
+        Route::delete('/faqs/{id}', [FaqsController::class, 'destroy']);
+        Route::get('/faqs', [FaqsController::class, 'index']);
+        Route::get('/faqs-public', [FaqsController::class, 'active_faqs']);
+
+        // --- PARTNERS ---
+        Route::post('/partners', [PartnerController::class, 'store']);
+        Route::put('/partners/{id}', [PartnerController::class, 'update']);
+        Route::delete('/partners/{id}', [PartnerController::class, 'destroy']);
+        Route::get('/partners', [PartnerController::class, 'index']);
+        Route::get('/partners-public', [PartnerController::class, 'active_partners']);
+
+        // --- CONTACTS ---
+        Route::post('/contacts', [ContactController::class, 'store']);
+        Route::put('/contacts/{id}', [ContactController::class, 'update']);
+        Route::delete('/contacts/{id}', [ContactController::class, 'destroy']);
+        Route::get('/contacts', [ContactController::class, 'index']);
+
+        // --- SLIDERS ---
+        Route::post('/sliders', [SliderController::class, 'store']);
+        Route::put('/sliders/{id}', [SliderController::class, 'update']);
+        Route::delete('/sliders/{id}', [SliderController::class, 'destroy']);
+        Route::get('/sliders', [SliderController::class, 'index']);
+        Route::get('/sliders-public', [SliderController::class, 'active_sliders']);
+
         
     // admin + gestionnaire
     Route::middleware('role:admin,gestionnaire')->group(function () {
